@@ -20,7 +20,13 @@ confluent     confluent-operator-5b99cdd9d9-pcx2p   1/1     Running   0         
 #### Bootstrap this repository
 You will need SSH access to this repository
 
-flux bootstrap git \
---url=ssh://git@github.com/mccullya/kakfa-gitops.git \
---branch=andrew \
---path=clusters/dev
+
+flux bootstrap github \
+--owner=mccullya \
+--repository=kakfa-gitops \
+--path=dev/flux-system \
+--personal
+
+
+
+#### Useful commands
