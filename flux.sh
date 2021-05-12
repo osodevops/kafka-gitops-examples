@@ -1,7 +1,11 @@
 #!/bin/bash
+1
+
+
 flux bootstrap github \
---owner=mccullya \
+--context=minikube \
+--owner=${GITHUB_USER} \
 --repository=kakfa-gitops \
---path=clusters/dev \
---branch=andrew \
---personal
+--path=clusters/dev
+--branch=main \
+--personal \
