@@ -1,0 +1,10 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: ConfluentRolebinding
+metadata:
+  name: control-centre-base
+  namespace: confluent
+spec:
+  principal:
+    name: ccc
+    type: user
+  role: SystemAdmin

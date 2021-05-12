@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: openldap
+  namespace: tools
+spec:
+  interval: 1m
+  ref:
+    branch: master
+  url: https://github.com/confluentinc/operator-earlyaccess

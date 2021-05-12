@@ -14,3 +14,4 @@ helm repo update
 helm upgrade --install operator \
 confluentinc_earlyaccess/confluent-for-kubernetes \
 --set image.registry=confluent-docker-internal-early-access-operator-2.jfrog.io
+helm upgrade --install -f ./resources/openldap/ldaps-rbac.yaml test-ldap ./resources/openldap --namespace confluent
