@@ -24,7 +24,7 @@ You will need SSH access to this repository
 flux bootstrap github \
 --owner=mccullya \
 --repository=kakfa-gitops \
---path=dev/flux-system \
+--path=clusters/dev \
 --personal
 
 
