@@ -10,7 +10,7 @@ spec:
     branch: andrew
   secretRef:
     name: flux-system
-  url: ssh://git@github.com/mccullya/kakfa-gitops.git
+  url: ssh://git@github.com/mccullya/kakfa-gitops
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
