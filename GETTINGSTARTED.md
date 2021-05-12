@@ -15,3 +15,12 @@ To verify the operator has installed successfully, run kubectl `get pods -n conf
 NAMESPACE     NAME                                  READY   STATUS    RESTARTS   AGE
 confluent     confluent-operator-5b99cdd9d9-pcx2p   1/1     Running   0          3m44s
 ```
+
+
+#### Bootstrap this repository
+You will need SSH access to this repository
+
+flux bootstrap git \
+--url=ssh://git@github.com/mccullya/kakfa-gitops.git \
+--branch=andrew \
+--path=clusters/dev
