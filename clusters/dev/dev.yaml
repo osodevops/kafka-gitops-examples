@@ -26,8 +26,8 @@ spec:
     name: flux-system
     namespace: flux-system
   healthChecks:
-    - kind: Deployment
-      name: infrastructure
-      namespace: flux-system
+    - kind: Pod
+      name: ldap
+      namespace: tools
   path: ./infrastructure
   prune: true
