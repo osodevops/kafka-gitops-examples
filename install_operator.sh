@@ -6,7 +6,6 @@ flux bootstrap github \
 --path=clusters/dev \
 --branch=andrew \
 --personal
-sleep 100
 kubectl create secret -n confluent docker-registry confluent-registry \
   --docker-server=confluent-docker-internal-early-access-operator-2.jfrog.io \
   --docker-username=$USER \
