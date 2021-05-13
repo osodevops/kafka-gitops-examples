@@ -44,7 +44,7 @@ spec:
       provider:
         type: ldap.yaml
         ldap:
-          address: ldap.yaml://ldap.yaml.confluent.svc.cluster.local:389
+          address: ldap.yaml://ldap.yaml.tools.svc.cluster.local:389
           authentication:
             type: simple
             simple:

@@ -18,6 +18,11 @@ spec:
           containerPort: 389
         - name: ldaps
           containerPort: 636
+      livenessProbe:
+        tcpSocket:
+          port: 389
+        initialDelaySeconds: 15
+        periodSeconds: 20
       env:
         - name: LDAP_ORGANISATION
           value: "Test Inc"
