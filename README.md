@@ -123,3 +123,21 @@ flux bootstrap github \
     --personal \
     --path=clusters/production
 ```
+
+4. The source controller will be unable to pull the Helm chart or connect to the Docker registry. You now should create the following secrets using Confluent early access credentials:
+```sh
+export USER=<user email here>
+export APIKEY=<API KEY sent via email>
+export EMAIL=<user email here>
+
+kubectl create secret docker-registry confluent-registry -n confluent \
+  --docker-server=confluent-docker-internal-early-access-operator-2.jfrog.io \
+  --docker-username=$EMAIL \
+  --docker-password=$APIKEY \
+  --docker-email=$EMAIL
+
+```
+Watch for the Helm releases being installed in production cluster:
+
+```console
+$ watch flux get helmreleases --all-namespaces 
