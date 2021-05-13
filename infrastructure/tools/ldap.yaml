@@ -30,23 +30,34 @@ spec:
         - name: LDAP_CONFIG_PASSWORD
           value: "confluentconfigrox"
         - name: KEEP_EXISTING_CONFIG
-          value: "false"
+          value: "False"
         - name: LDAP_REMOVE_CONFIG_AFTER_SETUP
-          value: "true"
+          value: "True"
         - name: LDAP_READONLY_USER
-          value: "true"
+          value: "True"
         - name: LDAP_READONLY_USER_USERNAME
           value: "mds"
         - name: LDAP_READONLY_USER_PASSWORD
           value: "Developer!"
+        - name: LDAP_TLS
+          value: "False"
       volumeMounts:
       - mountPath: /container/service/slapd/assets/config/bootstrap/ldif/custom
         name: customldif
+      - mountPath: /var/lib/ldap
+        name: ldap-data
+      - mountPath: /etc/ldap/slapd.d
+        name: ldap-config
   volumes:
     - name: customldif
       configMap:
         defaultMode: 420
         name: ldap-ldifs
+    - name: ldap-data
+      emptyDir: {}
+    - name: ldap-config
+      emptyDir: {}
+
   restartPolicy: Always
 ---
 apiVersion: v1
