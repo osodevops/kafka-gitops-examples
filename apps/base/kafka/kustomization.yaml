@@ -5,7 +5,6 @@ resources:
   - secrets.yaml
   - certificates.yaml
   - cluster.yaml
-  - kafka-rest-class.yaml
   - kafka-connect.yaml
   - schema-registry.yaml
   - control-centre.yaml
