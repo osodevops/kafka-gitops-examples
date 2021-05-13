@@ -1,21 +1,60 @@
-name: ldap.yaml
-image: osixia/openldap:1.3.0
-tls:
-  enabled: false
-  fullchain: |-
-  privkey: |-
-  cacerts: |-
-
-env:
-  LDAP_ORGANISATION: "Test Inc."
-  LDAP_DOMAIN: "test.com"
-  LDAP_ADMIN_PASSWORD: "confluentrox"
-  LDAP_CONFIG_PASSWORD: "confluentconfigrox"
-  LDAP_READONLY_USER: "true"
-  LDAP_READONLY_USER_USERNAME: "mds"
-  LDAP_READONLY_USER_PASSWORD: "Developer!"
-
-ldifs:
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ldap
+  namespace: tools
+  labels:
+    role: ldap
+    app: ldap
+spec:
+  containers:
+    - name: ldap
+      args:
+      - --copy-service
+      - --loglevel=debug
+      image: osixia/openldap:1.4.0
+      ports:
+        - name: ldap
+          containerPort: 389
+        - name: ldaps
+          containerPort: 636
+      env:
+        - name: LDAP_ORGANISATION
+          value: "Test Inc"
+        - name: LDAP_DOMAIN
+          value: "test.com"
+        - name: LDAP_BASE_DN
+          value: "dc=test,dc=com"
+        - name: LDAP_ADMIN_PASSWORD
+          value: "confluentrox"
+        - name: LDAP_CONFIG_PASSWORD
+          value: "confluentconfigrox"
+        - name: KEEP_EXISTING_CONFIG
+          value: "false"
+        - name: LDAP_REMOVE_CONFIG_AFTER_SETUP
+          value: "true"
+        - name: LDAP_READONLY_USER
+          value: "true"
+        - name: LDAP_READONLY_USER_USERNAME
+          value: "mds"
+        - name: LDAP_READONLY_USER_PASSWORD
+          value: "Developer!"
+      volumeMounts:
+      - mountPath: /container/service/slapd/assets/config/bootstrap/ldif/custom
+        name: customldif
+  volumes:
+    - name: customldif
+      configMap:
+        defaultMode: 420
+        name: ldap-ldifs
+  restartPolicy: Always
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ldap-ldifs
+  namespace: tools
+data:
   kafka.ldif: |-
     dn: cn=kafka,dc=test,dc=com
     userPassword: kafka-secret
@@ -72,3 +111,23 @@ ldifs:
     objectClass: simpleSecurityObject
     objectClass: organizationalRole
     cn: testadmin
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ldap
+  labels:
+    app: ldap
+  namespace: tools
+spec:
+  ports:
+    - port: 389
+      name: ldap
+    - port: 636
+      name: ldaps
+  clusterIP: None
+  selector:
+    app: ldap
+
+
+

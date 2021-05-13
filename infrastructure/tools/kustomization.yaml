@@ -3,6 +3,5 @@ kind: Kustomization
 namespace: tools
 resources:
   - namespace.yaml
-#  - repos.yaml
   - proxy.yaml
-#  - openldap.yaml
+  - ldap.yaml

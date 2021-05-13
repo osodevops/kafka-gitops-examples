@@ -4,7 +4,7 @@ home: https://www.openldap.org
 version: 1.0.0
 appVersion: 1.0.0
 keywords:
-  - ldap
+  - ldap.yaml
   - openldap
 maintainers:
   - name: Confluent Cloud
