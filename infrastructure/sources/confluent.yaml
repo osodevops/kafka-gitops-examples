@@ -5,6 +5,4 @@ metadata:
   namespace: flux-system
 spec:
   url: https://confluent.jfrog.io/confluent/helm-early-access-operator-2
-  secretRef:
-    name: https-credentials
   interval: 1m
