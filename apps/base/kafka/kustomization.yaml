@@ -4,11 +4,10 @@ namespace: confluent
 resources:
   - secrets.yaml
   - certificates.yaml
-  - zookeeper.yaml
-  - kafka-broker.yaml
+  - cluster.yaml
   - kafka-rest-class.yaml
+  - kafka-connect.yaml
   - schema-registry.yaml
   - control-centre.yaml
-  - kafka-connect.yaml
   - rest-proxy.yaml
   - ksqldb.yaml
