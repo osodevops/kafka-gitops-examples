@@ -5,7 +5,7 @@ resources:
   - secrets.yaml
   - certificates.yaml
   - zookeeper.yaml
-  - kafka.yaml
+  - kafka-broker.yaml
   - schema-registry.yaml
   - control-centre.yaml
   - kafka-connect.yaml
