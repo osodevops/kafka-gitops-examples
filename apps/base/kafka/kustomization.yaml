@@ -10,4 +10,4 @@ resources:
   - control-centre.yaml
   - kafka-connect.yaml
   - rest-proxy.yaml
-  - ksql.yaml
+  - ksqldb.yaml
