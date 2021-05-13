@@ -1,11 +1,30 @@
 #!/bin/bash
 kubectl create namespace confluent
+kubectl create namespace flux-system
 kubectl config set-context --current --namespace=confluent
+
+
+
+
 kubectl create secret -n confluent docker-registry confluent-registry \
   --docker-server=confluent-docker-internal-early-access-operator-2.jfrog.io \
   --docker-username=$USER \
   --docker-password=$APIKEY \
   --docker-email=$EMAIL
+kubectl create secret -n flux-system generic https-credentials \
+  --username=$USER \
+  --password=$APIKEY
+flux bootstrap github \
+--context=minikube \
+--owner=${GITHUB_USER} \
+--repository=kakfa-gitops \
+--path=clusters/dev \
+--branch=andrew \
+--personal
+
+
+
+
 helm repo add confluentinc_earlyaccess \
   https://confluent.jfrog.io/confluent/helm-early-access-operator-2 \
   --username $USER \

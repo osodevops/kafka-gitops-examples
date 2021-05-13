@@ -31,3 +31,4 @@ flux bootstrap github \
 
 
 #### Useful commands
+`kubectl get secrets -n flux-system https-credentials -o json | jq '.data | map_values(@base64d)'`
