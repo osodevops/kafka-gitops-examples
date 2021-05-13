@@ -6,6 +6,7 @@ resources:
   - certificates.yaml
   - zookeeper.yaml
   - kafka-broker.yaml
+  - kafka-rest-class.yaml
   - schema-registry.yaml
   - control-centre.yaml
   - kafka-connect.yaml
