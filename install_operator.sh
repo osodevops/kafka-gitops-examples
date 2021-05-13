@@ -1,7 +1,7 @@
 #!/bin/bash
 kubectl create namespace confluent
 kubectl config set-context --current --namespace=confluent
-kubectl create secret docker-registry confluent-registry \
+kubectl create secret -n confluent docker-registry confluent-registry \
   --docker-server=confluent-docker-internal-early-access-operator-2.jfrog.io \
   --docker-username=$USER \
   --docker-password=$APIKEY \
@@ -11,7 +11,11 @@ helm repo add confluentinc_earlyaccess \
   --username $USER \
   --password $APIKEY
 helm repo update
-helm upgrade --install operator \
-confluentinc_earlyaccess/confluent-for-kubernetes \
---set image.registry=confluent-docker-internal-early-access-operator-2.jfrog.io
-helm upgrade --install -f ./resources/openldap/ldaps-rbac.yaml test-ldap ./resources/openldap --namespace confluent
+
+# AKA /infrastructure/confluent/confluent-operators.yaml
+#helm upgrade --install operator \
+#confluentinc_earlyaccess/confluent-for-kubernetes \
+#--set image.registry=confluent-docker-internal-early-access-operator-2.jfrog.io
+
+# AKA /infrastructure/tools/openldap.yaml
+#helm upgrade --install -f ./resources/openldap/ldaps-rbac.yaml test-ldap ./resources/openldap --namespace confluent
