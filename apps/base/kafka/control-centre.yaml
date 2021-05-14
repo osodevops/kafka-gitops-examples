@@ -30,7 +30,7 @@ spec:
       authentication:
         type: plain
         jaasConfig:
-          secretRef: ccc
+          secretRef: credential
       tls:
         enabled: true
     mds:
@@ -40,7 +40,7 @@ spec:
       authentication:
         type: bearer
         bearer:
-          secretRef: ccc
+          secretRef: c3-mds-client
       tls:
         enabled: true
     ksqldb:

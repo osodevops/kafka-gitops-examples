@@ -121,4 +121,4 @@ spec:
     authentication:
       type: bearer
       bearer:
-        secretRef: credential
+        secretRef: rest-credential
