@@ -1,17 +1,18 @@
 #!/bin/bash
-kubectl create namespace confluent
-kubectl config set-context --current --namespace=confluent
-kubectl create secret docker-registry confluent-registry \
+flux bootstrap github \
+--context=minikube \
+--owner=${GITHUB_USER} \
+--repository=kakfa-gitops \
+--path=clusters/dev \
+--branch=andrew \
+--personal
+kubectl create secret -n confluent docker-registry confluent-registry \
   --docker-server=confluent-docker-internal-early-access-operator-2.jfrog.io \
   --docker-username=$USER \
   --docker-password=$APIKEY \
-  --docker-email=$EMAIL
-helm repo add confluentinc_earlyaccess \
-  https://confluent.jfrog.io/confluent/helm-early-access-operator-2 \
-  --username $USER \
-  --password $APIKEY
-helm repo update
-helm upgrade --install operator \
-confluentinc_earlyaccess/confluent-for-kubernetes \
---set image.registry=confluent-docker-internal-early-access-operator-2.jfrog.io
-helm upgrade --install -f ./resources/openldap/ldaps-rbac.yaml test-ldap ./resources/openldap --namespace confluent
+  --docker-email=$EMAIL && \
+kubectl create secret -n flux-system generic https-credentials \
+  --from-literal=username=$USER \
+  --from-literal=password=$APIKEY
+
+

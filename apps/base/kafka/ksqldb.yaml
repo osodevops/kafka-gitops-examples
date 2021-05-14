@@ -20,19 +20,19 @@ spec:
       authentication:
         type: plain
         jaasConfig:
-          secretRef: ksqldb
+          secretRef: credential
       tls:
         enabled: true
     mds:
       authentication:
         type: bearer
         bearer:
-          secretRef: ksqldb
+          secretRef: ksqldb-mds-client
       endpoint: https://kafka.confluent.svc.cluster.local:8090
       tls:
         enabled: true
       tokenKeyPair:
-        secretRef: ksqldb
+        secretRef: mds-token
   configOverrides:
     server:
       - ksql.service.id=ksqldb-cluster

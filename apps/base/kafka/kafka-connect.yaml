@@ -1,3 +1,4 @@
+---
 apiVersion: platform.confluent.io/v1beta1
 kind: Connect
 metadata:
@@ -18,7 +19,7 @@ spec:
       authentication:
         type: plain
         jaasConfig:
-          secretRef: connect
+          secretRef: credential
       tls:
         enabled: true
     mds:
@@ -30,7 +31,7 @@ spec:
       tls:
         enabled: true
       tokenKeyPair:
-        secretRef: connect
+        secretRef: mds-token
   configOverrides:
     server:
       - group.id=connect-cluster

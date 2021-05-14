@@ -19,19 +19,19 @@ spec:
       authentication:
         type: plain
         jaasConfig:
-          secretRef: registry
+          secretRef: credential
       tls:
         enabled: true
     mds:
       authentication:
         type: bearer
         bearer:
-          secretRef: registry
+          secretRef: sr-mds-client
       endpoint: https://kafka.confluent.svc.cluster.local:8090
       tls:
         enabled: true
       tokenKeyPair:
-        secretRef: registry
+        secretRef: mds-token
   configOverrides:
     server:
       - leader.eligibility=true

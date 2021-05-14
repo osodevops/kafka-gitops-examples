@@ -1,4 +1,3 @@
-
 ---
 apiVersion: platform.confluent.io/v1beta1
 kind: Kafka
@@ -20,7 +19,7 @@ spec:
       authentication:
         type: plain
         jaasConfig:
-          secretRef: kafka
+          secretRef: credential
       tls:
         enabled: true
     # external listener exposes the Kafka bootstrap and brokers as LB endpoints
@@ -28,7 +27,7 @@ spec:
       authentication:
         type: plain
         jaasConfig:
-          secretRef: kafka
+          secretRef: credential
       tls:
         enabled: true
   authorization:
@@ -44,7 +43,7 @@ spec:
       provider:
         type: ldap
         ldap:
-          address: ldap://ldap.confluent.svc.cluster.local:389
+          address: ldap://ldap.tools.svc.cluster.local:389
           authentication:
             type: simple
             simple:
@@ -89,8 +88,17 @@ spec:
     # log4j:
     #  - log4j.logger.io.confluent.security.auth.provider.ldap.LdapGroupManager=DEBUG
   dependencies:
+    kafkaRest:
+      authentication:
+        type: bearer
+        bearer:
+          secretRef: mds-client
     zookeeper:
       endpoint: zookeeper.confluent.svc.cluster.local:2182
+      authentication:
+        type: digest
+        jaasConfig:
+          secretRef: credential
       tls:
         enabled: true
   metricReporter:
@@ -113,4 +121,4 @@ spec:
     authentication:
       type: bearer
       bearer:
-        secretRef: kafka
+        secretRef: rest-credential

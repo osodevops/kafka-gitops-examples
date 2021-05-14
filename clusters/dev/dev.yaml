@@ -1,4 +1,3 @@
----
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
@@ -6,11 +5,29 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  dependsOn:
-    - name: core
-  path: ./apps/base
-  prune: true
+#  dependsOn:
+#    - name: infrastucture
   sourceRef:
     kind: GitRepository
-    name: confluent
+    name: flux-system
+  prune: true
+  path: ./apps/base
   validation: client
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: infrastructure
+  namespace: flux-system
+spec:
+  interval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  healthChecks:
+    - kind: Pod
+      name: ldap
+      namespace: tools
+  path: ./infrastructure
+  prune: true
