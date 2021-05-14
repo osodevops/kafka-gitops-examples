@@ -1,7 +1,4 @@
 #!/bin/bash
-
-
-
 flux bootstrap github \
 --context=minikube \
 --owner=${GITHUB_USER} \
