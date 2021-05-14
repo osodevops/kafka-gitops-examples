@@ -57,3 +57,6 @@ confluent     confluent-operator-5b99cdd9d9-pcx2p   1/1     Running   0         
 
 * Decode secrets
 `kubectl get secrets -n flux-system https-credentials -o json | jq '.data | map_values(@base64d)'`
+
+* Access Control Centre
+`kubectl port-forward -n confluent controlcenter-0 9021:9021`
