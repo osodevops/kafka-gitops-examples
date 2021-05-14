@@ -4,6 +4,7 @@ namespace: confluent
 resources:
   - secrets.yaml
   - certificates.yaml
+  - zookeeper.yaml
   - cluster.yaml
   - kafka-connect.yaml
   - schema-registry.yaml

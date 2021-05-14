@@ -14,3 +14,5 @@ kubectl create secret -n confluent docker-registry confluent-registry \
 kubectl create secret -n flux-system generic https-credentials \
   --from-literal=username=$USER \
   --from-literal=password=$APIKEY
+
+
