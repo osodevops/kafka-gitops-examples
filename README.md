@@ -123,21 +123,47 @@ flux bootstrap github \
     --personal \
     --path=clusters/production
 ```
-
-4. The source controller will be unable to pull the Helm chart or connect to the Docker registry. You now should create the following secrets using Confluent early access credentials:
+4. Deploy the secrets required by the application.  The secrets referenced in `./resources/populate_secrets.sh` will match up to the LDAP/LDIFs located at `./infrastructure/tools/ldap.yaml`
 ```sh
-export USER=<user email here>
+./resources/populate_secrets.sh
+```
+
+5. The source controller will be unable to pull the Helm chart or connect to the Docker registry. You now should create the following secrets using Confluent early access credentials:
+```sh
+export USER=<user id here (often same as email)>
 export APIKEY=<API KEY sent via email>
 export EMAIL=<user email here>
 
 kubectl create secret docker-registry confluent-registry -n confluent \
   --docker-server=confluent-docker-internal-early-access-operator-2.jfrog.io \
-  --docker-username=$EMAIL \
+  --docker-username=$USER \
   --docker-password=$APIKEY \
-  --docker-email=$EMAIL
+  --docker-email=$EMAIL && \
+kubectl create secret -n flux-system generic https-credentials \
+--from-literal=username=$USER \
+--from-literal=password=$APIKEY
 
 ```
 Watch for the Helm releases being installed in production cluster:
 
 ```console
 $ watch flux get helmreleases --all-namespaces 
+```
+
+
+## Appendix
+### Useful commands
+
+* Force Flux Reconciliation
+  `flux reconcile source git flux-system`
+
+* Decode secrets
+  `kubectl get secrets -n flux-system https-credentials -o json | jq '.data | map_values(@base64d)'`
+
+* Access Control Centre
+  `kubectl port-forward -n confluent controlcenter-0 9021:9021`. The web UI credentials will be c3/c3-secret (as defined by the populated secrets)
+
+* LDAP Testing.  Exec onto the ldap container by running: `kubectl exec -it -n tools ldap -- bash`. Running  
+  `ldapsearch -LLL -x -H ldap://ldap.tools.svc.cluster.local:389 -b 'dc=test,dc=com' -D "cn=mds,dc=test,dc=com" -w 'Developer!'` will return a list of LDAP users presently configured
+
+* For testing a repeatable deployment process, for example on a local minikube, a `tldr.sh` script which captures the above steps has been included at the root of this project

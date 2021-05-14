@@ -1,10 +1,9 @@
 #!/bin/bash
 flux bootstrap github \
---context=minikube \
 --owner=${GITHUB_USER} \
---repository=kakfa-gitops \
---path=clusters/dev \
---branch=andrew \
+--repository=${GITHUB_REPO} \
+--path=clusters/production \
+--branch=main \
 --personal
 sleep 10
 echo "Sleeping for 10 seconds to ensure namespace is created"
