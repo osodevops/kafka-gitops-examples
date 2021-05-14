@@ -60,3 +60,9 @@ confluent     confluent-operator-5b99cdd9d9-pcx2p   1/1     Running   0         
 
 * Access Control Centre
 `kubectl port-forward -n confluent controlcenter-0 9021:9021`
+
+Log in with: c3/c3-secret  
+
+* Test LDAP
+`kubectl exec -it -n tools ldap -- bash` 
+ldapsearch -LLL -x -H ldap://ldap.tools.svc.cluster.local:389 -b 'dc=test,dc=com' -D "cn=mds,dc=test,dc=com" -w 'Developer!'
