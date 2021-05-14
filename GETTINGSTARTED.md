@@ -8,9 +8,9 @@ To install the secrets required by RBAC/Confluent, run the script: `$./populate_
 In order to access the Confluent early-access operator you must register at https://events.confluent.io/confluentoperatorearlyaccess.  Once these credentials have been obtained, export them as the following environment variables:
 
 ```
-export USER=<user email here>
+export USER=<user name here (often same as EMAIL)>
 export APIKEY=<API KEY>
-export EMAIL=<user email here>
+export EMAIL=<user email here >
 export GITHUB_USER=<your github usernmae>
 ```
 
