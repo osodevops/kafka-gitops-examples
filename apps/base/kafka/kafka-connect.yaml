@@ -31,7 +31,7 @@ spec:
       tls:
         enabled: true
       tokenKeyPair:
-        secretRef: connect-mds-client
+        secretRef: mds-token
   configOverrides:
     server:
       - group.id=connect-cluster
