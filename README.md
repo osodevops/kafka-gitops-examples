@@ -106,7 +106,7 @@ Following this example, you'll set up secure Confluent Platform clusters with SA
 ```sh
 export GITHUB_TOKEN=<your-token>
 export GITHUB_USER=<your-username>
-export GITHUB_REPO=<repository-name>
+export GITHUB_REPO=<repository-name (i.e. kafka-gitops)>
 ```
     
 2. After forking and cloning the repository, navigate to the project root and verify that your production cluster folder satisfies the prerequisites with:
