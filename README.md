@@ -128,9 +128,9 @@ flux bootstrap github \
 flux bootstrap github \
     --owner=${GITHUB_USER} \
     --repository=${GITHUB_REPO} \
-    --branch=main \
+    --branch=develop-andrewmccully \
     --personal \
-    --path=clusters/production
+    --path=kustomize
 ```
 
 4. Deploy the secrets required by the application.  The secrets referenced in `./resources/populate_secrets.sh` will match up to the LDAP/LDIFs located at `./infrastructure/tools/ldap.yaml`

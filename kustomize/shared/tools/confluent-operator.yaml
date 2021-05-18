@@ -1,25 +1,8 @@
----
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
-metadata:
-  name: confluent
-spec:
-  interval: 1m
-  chart:
-    spec:
-      chart: confluent-for-kubernetes
-      sourceRef:
-        kind: HelmRepository
-        name: confluent-private
-        namespace: flux-system
-  values:
-    image:
-      registry: confluent-docker-internal-early-access-operator-2.jfrog.io
----
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
   name: confluent-private
+  namespace: flux-system
 spec:
   url: https://confluent.jfrog.io/confluent/helm-early-access-operator-2
   secretRef:
