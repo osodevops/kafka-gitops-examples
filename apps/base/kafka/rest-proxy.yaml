@@ -187,7 +187,7 @@ spec:
         - name: credentials
           secret:
             defaultMode: 420
-            secretName: rest-credential
+            secretName: credential
 
   updateStrategy:
     type: RollingUpdate
