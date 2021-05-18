@@ -5,7 +5,7 @@ metadata:
   namespace: confluent
 spec:
   clustersScopeByIds:
-    schemaRegistryClusterId: id_schemaregistry_confluent
+    schemaRegistryClusterId: id_registry_confluent
   principal:
     name: registry
     type: user
