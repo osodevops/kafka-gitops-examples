@@ -5,13 +5,13 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./shared"
+  path: ./shared
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
   healthChecks:
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: confluent-operator
+    - apiVersion: helm.toolkit.fluxcd.io/v1beta1
+      kind: HelmRelease
+      name: confluent
       namespace: dev

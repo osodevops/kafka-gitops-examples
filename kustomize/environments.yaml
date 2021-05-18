@@ -7,7 +7,7 @@ spec:
   dependsOn:
     - name: shared
   interval: 5m
-  path: "./environments"
+  path: ./environments
   prune: true
   sourceRef:
     kind: GitRepository
