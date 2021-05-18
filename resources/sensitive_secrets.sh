@@ -8,7 +8,7 @@ kubectl create secret docker-registry confluent-registry -n staging \
   --docker-username=$USER \
   --docker-password=$APIKEY \
   --docker-email=$EMAIL --dry-run=client --output=yaml > ./sensitive-docker-registry-staging.yaml && \
-kubectl create secret docker-registry confluent-registry -n staging \
+kubectl create secret docker-registry confluent-registry -n production \
   --docker-server=confluent-docker-internal-early-access-operator-2.jfrog.io \
   --docker-username=$USER \
   --docker-password=$APIKEY \
