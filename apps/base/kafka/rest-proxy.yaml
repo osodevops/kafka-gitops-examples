@@ -44,28 +44,19 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-
             - name: KAFKA_REST_CONFIG_PROVIDERS
               value: file
             - name: KAFKA_REST_CONFIG_PROVIDERS_FILE_CLASS
               value: org.apache.kafka.common.config.provider.FileConfigProvider
-
             # duplicated for the proper generation of /etc/kafka-rest/admin.properties
             - name: KAFKA_REST_CLIENT_CONFIG_PROVIDERS
               value: file
             - name: KAFKA_REST_CLIENT_CONFIG_PROVIDERS_FILE_CLASS
               value: org.apache.kafka.common.config.provider.FileConfigProvider
-
             - name: KAFKA_REST_BOOTSTRAP_SERVERS
               value: kafka.confluent.svc.cluster.local:9071
             - name: KAFKA_REST_CLIENT_SECURITY_PROTOCOL
               value: SASL_SSL
-            # - name: KAFKA_REST_CLIENT_SASL_MECHANISM
-            #   value: OAUTHBEARER
-            # - name: KAFKA_REST_CLIENT_SASL_JAAS_CONFIG
-            #   value: org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required metadataServerUrls="https://kafka.confluent.svc.cluster.local:8090" username="${file:/mnt/secrets/rest/bearer.txt:username}" password="${file:/mnt/secrets/rest/bearer.txt:password}";
-            # - name: KAFKA_REST_CLIENT_SASL_LOGIN_CALLBACK_HANDLER_CLASS
-            #   value: io.confluent.kafka.clients.plugins.auth.token.TokenUserLoginCallbackHandler
             - name: KAFKA_REST_CLIENT_SASL_MECHANISM
               value: PLAIN
             - name: KAFKA_REST_CLIENT_SASL_JAAS_CONFIG
@@ -80,7 +71,6 @@ spec:
               value: /mnt/sslcerts/truststore.jks
             - name: KAFKA_REST_CLIENT_SSL_TRUSTSTORE_PASSWORD
               value: ${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
-
             - name: KAFKA_REST_LISTENERS
               value: https://0.0.0.0:8080,http://localhost:9080
             - name: KAFKA_REST_SSL_ENABLED_PROTOCOLS
@@ -95,7 +85,6 @@ spec:
               value: /mnt/sslcerts/truststore.jks
             - name: KAFKA_REST_SSL_TRUSTSTORE_PASSWORD
               value: ${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
-
             - name: KAFKA_REST_SCHEMA_REGISTRY_URL
               value: https://registry.confluent.svc.cluster.local:8081
             - name: KAFKA_REST_SCHEMA_REGISTRY_HTTPS_SSL_KEY_PASSWORD
@@ -108,18 +97,14 @@ spec:
               value: /mnt/sslcerts/truststore.jks
             - name: KAFKA_REST_SCHEMA_REGISTRY_HTTPS_SSL_TRUSTSTORE_PASSWORD
               value: ${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
-
             - name: KAFKA_REST_CONFLUENT_REST_AUTH_PROPAGATE_METHOD
               value: JETTY_AUTH
-
             - name: KAFKA_REST_KAFKA_REST_RESOURCE_EXTENSION_CLASS
               value: io.confluent.kafkarest.security.KafkaRestSecurityResourceExtension
             - name: KAFKA_REST_REST_SERVLET_INITIALIZOR_CLASSES
               value: io.confluent.common.security.jetty.initializer.InstallBearerOrBasicSecurityHandler
-
             - name: KAFKA_REST_PUBLIC_KEY_PATH
               value: /mnt/secrets/rest/mdsPublicKey.pem
-
             - name: KAFKA_REST_CONFLUENT_METADATA_BOOTSTRAP_SERVER_URLS
               value: https://kafka.confluent.svc.cluster.local:8090
             - name: KAFKA_REST_CONFLUENT_METADATA_HTTP_AUTH_CREDENTIALS_PROVIDER
@@ -130,7 +115,6 @@ spec:
               value: /mnt/sslcerts/truststore.jks
             - name: KAFKA_REST_CONFLUENT_METADATA_SSL_TRUSTSTORE_PASSWORD
               value: ${file:/mnt/sslcerts/jksPassword.txt:jksPassword}
-
           startupProbe:
             exec:
               command:
@@ -141,7 +125,6 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 5
-
           livenessProbe:
             exec:
               command:
@@ -152,7 +135,6 @@ spec:
             periodSeconds: 30
             successThreshold: 1
             timeoutSeconds: 5
-
           ports:
             - containerPort: 8080
               name: external
@@ -175,10 +157,8 @@ spec:
               name: sslcerts
             - mountPath: /mnt/secrets/rest
               name: credentials
-
       dnsPolicy: ClusterFirst
       restartPolicy: Always
-
       volumes:
         - name: sslcerts
           secret:
@@ -188,7 +168,6 @@ spec:
           secret:
             defaultMode: 420
             secretName: credential
-
   updateStrategy:
     type: RollingUpdate
 ---

@@ -5,7 +5,9 @@ kubectl create secret -n confluent generic credential \
 --from-file=digest.txt=./users/creds-kafka-zookeeper-credentials.txt \
 --from-file=plain.txt=./users/creds-client-kafka-sasl-user.txt \
 --from-file=basic.txt=./users/creds-control-center-users.txt \
---from-file=ldap.txt=./users/ldap.txt
+--from-file=ldap.txt=./users/ldap.txt \
+--from-file=mdsPublicKey.pem=./certs/mds-publickey.txt \
+--from-file=mdsTokenKeyPair.pem=./certs/mds-tokenkeypair.txt
 kubectl create secret -n confluent generic mds-token \
 --from-file=mdsPublicKey.pem=./certs/mds-publickey.txt \
 --from-file=mdsTokenKeyPair.pem=./certs/mds-tokenkeypair.txt
@@ -28,4 +30,5 @@ kubectl create secret -n confluent generic ksqldb-mds-client \
 # Kafka REST credential
 kubectl create secret -n confluent generic rest-credential \
 --from-file=bearer.txt=./users/bearer.txt \
---from-file=basic.txt=./users/bearer.txt
+--from-file=basic.txt=./users/bearer.txt \
+--from-file=plain.txt=./users/bearer.txt
