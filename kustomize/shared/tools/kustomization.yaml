@@ -6,3 +6,6 @@ resources:
   - proxy.yaml
   - ldap.yaml
   - confluent-operator-credentials.yaml
+  - confluent-operator-dev.yaml
+  - confluent-operator-staging.yaml
+  - confluent-operator-production.yaml

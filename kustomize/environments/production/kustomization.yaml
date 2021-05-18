@@ -1,6 +1,5 @@
 resources:
 - namespace.yaml
-- ../../operator
 - ../../base
 namePrefix: prod-
 namespace: production

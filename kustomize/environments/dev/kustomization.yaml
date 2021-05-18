@@ -1,6 +1,5 @@
 resources:
 - namespace.yaml
-- ../../operator
 - ../../base
 namePrefix: dev-
 namespace: dev
