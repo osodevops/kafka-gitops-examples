@@ -5,3 +5,4 @@ resources:
   - namespace.yaml
   - proxy.yaml
   - ldap.yaml
+  - confluent-operator.yaml

@@ -123,6 +123,16 @@ flux bootstrap github \
     --personal \
     --path=clusters/production
 ```
+
+```sh
+flux bootstrap github \
+    --owner=${GITHUB_USER} \
+    --repository=${GITHUB_REPO} \
+    --branch=main \
+    --personal \
+    --path=clusters/production
+```
+
 4. Deploy the secrets required by the application.  The secrets referenced in `./resources/populate_secrets.sh` will match up to the LDAP/LDIFs located at `./infrastructure/tools/ldap.yaml`
 ```sh
 ./resources/populate_secrets.sh
@@ -134,7 +144,7 @@ export USER=<user id here (often same as email)>
 export APIKEY=<API KEY sent via email>
 export EMAIL=<user email here>
 
-kubectl create secret docker-registry confluent-registry -n confluent \
+kubectl create secret docker-registry confluent-registry -n dev \
   --docker-server=confluent-docker-internal-early-access-operator-2.jfrog.io \
   --docker-username=$USER \
   --docker-password=$APIKEY \
