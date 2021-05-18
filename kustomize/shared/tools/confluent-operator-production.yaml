@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: confluent
-  namespace: dev
+  namespace: production
 spec:
   interval: 1m
   chart:
