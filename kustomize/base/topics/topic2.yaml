@@ -1,0 +1,7 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: KafkaTopic
+metadata:
+  name: topic-rbac
+spec:
+  replicas: 1
+  partitionCount: 12
