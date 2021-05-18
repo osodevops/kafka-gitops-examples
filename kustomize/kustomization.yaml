@@ -1,4 +1,0 @@
-resources:
-  - shared
-  - environments
-namePrefix: cluster-a-
