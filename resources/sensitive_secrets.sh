@@ -1,3 +1,4 @@
+#!/bin/bash
 kubectl create namespace dev --dry-run=client --output=yaml > ./ns-dev.yaml
 kubectl create namespace staging --dry-run=client --output=yaml > ./ns-staging.yaml
 kubectl create namespace production --dry-run=client --output=yaml > ./ns-production.yaml
@@ -21,3 +22,4 @@ kubectl create secret -n flux-system generic https-credentials \
 --from-literal=username=$USER \
 --from-literal=password=$APIKEY \
 --dry-run=client --output=yaml > ./sensitive-https-credential.yaml
+kubectl apply -f .
