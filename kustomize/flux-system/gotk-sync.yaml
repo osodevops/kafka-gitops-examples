@@ -11,50 +11,17 @@ spec:
   secretRef:
     name: flux-system
   url: ssh://git@github.com/mccullya/kafka-gitops
-#---
-#apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
-#kind: Kustomization
-#metadata:
-#  name: flux-system
-#  namespace: flux-system
-#spec:
-#  interval: 10m0s
-#  path: ./kustomize
-#  prune: true
-#  sourceRef:
-#    kind: GitRepository
-#    name: flux-system
-#  validation: client
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
-  name: shared
+  name: flux-system
   namespace: flux-system
 spec:
-  interval: 5m
-  path: ../shared
+  interval: 10m0s
+  path: ./kustomize
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
-  healthChecks:
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: confluent-operator
-      namespace: dev
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
-kind: Kustomization
-metadata:
-  name: environments
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: shared
-  interval: 5m
-  path: ../environments
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
+  validation: client
