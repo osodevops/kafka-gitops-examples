@@ -1,5 +1,4 @@
 resources:
 - namespace.yaml
 - ../../base
-namePrefix: staging-
 namespace: staging
