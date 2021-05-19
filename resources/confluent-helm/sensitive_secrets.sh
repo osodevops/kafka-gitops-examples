@@ -1,8 +1,8 @@
 #!/bin/bash
-kubectl create namespace dev --dry-run=client --output=yaml > ./ns-dev.yaml
-kubectl create namespace staging --dry-run=client --output=yaml > ./ns-staging.yaml
-kubectl create namespace production --dry-run=client --output=yaml > ./ns-production.yaml
-kubectl create namespace flux-system --dry-run=client --output=yaml > ./ns-flux-system.yaml
+kubectl create namespace dev --dry-run=client --output=yaml > ./sensitive-ns-dev.yaml
+kubectl create namespace staging --dry-run=client --output=yaml > ./sensitive-ns-staging.yaml
+kubectl create namespace production --dry-run=client --output=yaml > ./sensitive-ns-production.yaml
+kubectl create namespace flux-system --dry-run=client --output=yaml > ./sensitive-ns-flux-system.yaml
 kubectl create secret docker-registry confluent-registry -n dev \
   --docker-server=confluent-docker-internal-early-access-operator-2.jfrog.io \
   --docker-username=$USER \

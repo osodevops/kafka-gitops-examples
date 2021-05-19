@@ -15,13 +15,33 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
-  name: flux-system
+  name: confluent-infra
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./kustomize
+  path: ./kustomize/infrastructure
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v1beta1
+      kind: HelmRelease
+      name: confluent
+      namespace: dev
   validation: client
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: environments
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: confluent-infra
+  interval: 5m
+  path: ./kustomize/environments
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

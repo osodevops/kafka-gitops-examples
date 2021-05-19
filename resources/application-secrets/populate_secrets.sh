@@ -8,36 +8,36 @@ kubectl create secret generic credential \
 --from-file=ldap.txt=./users/ldap.txt \
 --from-file=mdsPublicKey.pem=./certs/mds-publickey.txt \
 --from-file=mdsTokenKeyPair.pem=./certs/mds-tokenkeypair.txt \
---dry-run=client --output=yaml > ../kustomize/base/secrets/credential.yaml
+--dry-run=client --output=yaml > ../../kustomize/base/secrets/credential.yaml
 
 kubectl create secret generic mds-token \
 --from-file=mdsPublicKey.pem=./certs/mds-publickey.txt \
 --from-file=mdsTokenKeyPair.pem=./certs/mds-tokenkeypair.txt \
---dry-run=client --output=yaml > ../kustomize/base/secrets/mds-token.yaml
+--dry-run=client --output=yaml > ../../kustomize/base/secrets/mds-token.yaml
 
 # Kafka RBAC credential
 kubectl create secret generic mds-client \
 --from-file=bearer.txt=./users/bearer.txt \
---dry-run=client --output=yaml > ../kustomize/base/secrets/mds-client.yaml
+--dry-run=client --output=yaml > ../../kustomize/base/secrets/mds-client.yaml
 # Control Center RBAC credential
 kubectl create secret generic c3-mds-client \
 --from-file=bearer.txt=./users/c3-mds-client.txt \
---dry-run=client --output=yaml > ../kustomize/base/secrets/c3-mds-client.yaml
+--dry-run=client --output=yaml > ../../kustomize/base/secrets/c3-mds-client.yaml
 # Connect RBAC credential
 kubectl create secret generic connect-mds-client \
 --from-file=bearer.txt=./users/connect-mds-client.txt \
---dry-run=client --output=yaml > ../kustomize/base/secrets/connect-mds-client.yaml
+--dry-run=client --output=yaml > ../../kustomize/base/secrets/connect-mds-client.yaml
 # Schema Registry RBAC credential
 kubectl create secret generic sr-mds-client \
 --from-file=bearer.txt=./users/sr-mds-client.txt \
---dry-run=client --output=yaml > ../kustomize/base/secrets/sr-mds-client.yaml
+--dry-run=client --output=yaml > ../../kustomize/base/secrets/sr-mds-client.yaml
 # ksqlDB RBAC credential
 kubectl create secret generic ksqldb-mds-client \
 --from-file=bearer.txt=./users/ksqldb-mds-client.txt \
---dry-run=client --output=yaml > ../kustomize/base/secrets/ksqldb-mds-client.yaml
+--dry-run=client --output=yaml > ../../kustomize/base/secrets/ksqldb-mds-client.yaml
 # Kafka REST credential
 kubectl create secret generic rest-credential \
 --from-file=bearer.txt=./users/bearer.txt \
 --from-file=basic.txt=./users/bearer.txt \
 --from-file=plain.txt=./users/bearer.txt \
---dry-run=client --output=yaml > ../kustomize/base/secrets/rest-credential.yaml
+--dry-run=client --output=yaml > ../../kustomize/base/secrets/rest-credential.yaml

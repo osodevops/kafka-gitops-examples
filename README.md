@@ -169,6 +169,7 @@ $ watch flux get helmreleases --all-namespaces
 
 * Decode secrets
   `kubectl get secrets -n flux-system https-credentials -o json | jq '.data | map_values(@base64d)'`
+  `kubectl get secrets -n flux-system flux-system -o json | jq '.data | map_values(@base64d)'`
 
 * Access Control Centre
   `kubectl port-forward -n confluent controlcenter-0 9021:9021`. The web UI credentials will be c3/c3-secret (as defined by the populated secrets)
