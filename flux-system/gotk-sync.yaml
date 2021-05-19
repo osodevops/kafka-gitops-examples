@@ -40,7 +40,7 @@ spec:
   dependsOn:
     - name: confluent-infra
   interval: 5m
-  path: ./kustomize/environments
+  path: ./kustomize/environments/dev
   prune: true
   sourceRef:
     kind: GitRepository
