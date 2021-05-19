@@ -8,10 +8,13 @@
 * Add identity.pub to 'deploy keys' in github  
 * run git_repo.sh
 
-## Deploy confluent-helm chart secrets
-* Navigate to ./resources/confluent-helm
-* Set ENV Vars
-* run `senstive_secrets.sh`
+[comment]: <> (## Deploy confluent-helm chart secrets)
+
+[comment]: <> (* Navigate to ./resources/confluent-helm)
+
+[comment]: <> (* Set ENV Vars)
+
+[comment]: <> (* run `senstive_secrets.sh`)
 
 ## Deploy Flux Sync
 * Navigate to ./flux-system

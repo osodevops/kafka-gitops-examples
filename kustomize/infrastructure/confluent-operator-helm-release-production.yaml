@@ -14,4 +14,4 @@ spec:
         namespace: flux-system
   values:
     image:
-      registry: confluent-docker-internal-early-access-operator-2.jfrog.io
+      registry: docker.io
