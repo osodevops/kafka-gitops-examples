@@ -1,0 +1,11 @@
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: KsqlDB
+metadata:
+  name: ksqldb
+spec:
+  dependencies:
+    kafka:
+      bootstrapEndpoint: kafka.production.svc.cluster.local:9071
+    mds:
+      endpoint: https://kafka.production.svc.cluster.local:8090

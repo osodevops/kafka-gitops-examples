@@ -1,4 +1,10 @@
+namespace: production
 resources:
 - namespace.yaml
 - ../../base
-namespace: production
+patchesStrategicMerge:
+  - control-centre.yaml
+  - kafka.yaml
+  - kafka-connect.yaml
+  - ksqldb.yaml
+  - schema-registry.yaml
