@@ -1,4 +1,3 @@
----
 apiVersion: platform.confluent.io/v1beta1
 kind: ControlCenter
 metadata:
@@ -42,4 +41,3 @@ spec:
           secretRef: c3-mds-client
       tls:
         enabled: true
----

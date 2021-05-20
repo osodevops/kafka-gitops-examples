@@ -1,6 +1,5 @@
 namespace: dev
 resources:
-- namespace.yaml
 - ../../base
 patchesStrategicMerge:
   - control-centre.yaml

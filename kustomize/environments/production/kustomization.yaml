@@ -1,6 +1,5 @@
 namespace: production
 resources:
-- namespace.yaml
 - ../../base
 patchesStrategicMerge:
   - control-centre.yaml

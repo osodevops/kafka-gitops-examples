@@ -4,3 +4,4 @@ resources:
   - secrets
   - confluent
   - rolebindings
+  - topics

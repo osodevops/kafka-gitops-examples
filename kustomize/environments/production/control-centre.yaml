@@ -4,6 +4,8 @@ kind: ControlCenter
 metadata:
   name: controlcenter
 spec:
+  tls:
+    secretRef: tls-group1
   dependencies:
     kafka:
       bootstrapEndpoint: kafka.production.svc.cluster.local:9071

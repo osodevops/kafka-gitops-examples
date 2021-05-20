@@ -6,5 +6,4 @@ resources:
   - ldap.yaml
   - confluent-operator-credentials.yaml
   - confluent-operator-helm-release-dev.yaml
-  - confluent-operator-helm-release-staging.yaml
   - confluent-operator-helm-release-production.yaml

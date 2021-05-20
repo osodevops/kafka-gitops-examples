@@ -4,6 +4,8 @@ kind: Kafka
 metadata:
   name: kafka
 spec:
+  tls:
+    secretRef: tls-group1
   dependencies:
     zookeeper:
       endpoint: zookeeper.production.svc.cluster.local:2182

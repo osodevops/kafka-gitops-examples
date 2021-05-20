@@ -7,10 +7,10 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: develop-andrewmccully
+    branch: playground
   secretRef:
     name: flux-system
-  url: ssh://git@github.com/mccullya/kafka-gitops
+  url: ssh://git@github.com/osodevops/kafka-gitops
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization

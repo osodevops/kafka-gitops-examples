@@ -31,11 +31,3 @@ spec:
           secretRef: sr-mds-client
       tls:
         enabled: true
-#  configOverrides:
-#    server:
-#      - leader.eligibility=true
-#      - inter.instance.protocol=https
-#      # operator changes the defaults
-#      - schema.registry.group.id=schema-registry
-#      - kafkastore.topic=_schemas
----
