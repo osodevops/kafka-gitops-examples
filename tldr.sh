@@ -3,7 +3,7 @@ flux bootstrap github \
 --owner=${GITHUB_USER} \
 --repository=${GITHUB_REPO} \
 --path=clusters/production \
---branch=main \
+--branch=develop \
 --personal
 sleep 10
 echo "Sleeping for 10 seconds to ensure namespace is created"

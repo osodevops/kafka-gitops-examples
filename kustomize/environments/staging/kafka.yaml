@@ -1,0 +1,11 @@
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: Kafka
+metadata:
+  name: kafka
+spec:
+  dependencies:
+    zookeeper:
+      endpoint: zookeeper.staging.svc.cluster.local:2182
+  metricReporter:
+    bootstrapEndpoint: kafka.staging.svc.cluster.local:9071

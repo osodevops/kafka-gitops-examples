@@ -1,0 +1,47 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: flux-system
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  ref:
+    branch: develop-andrewmccully
+  secretRef:
+    name: flux-system
+  url: ssh://git@github.com/mccullya/kafka-gitops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: confluent-infra
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./kustomize/infrastructure
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v1beta1
+      kind: HelmRelease
+      name: confluent
+      namespace: dev
+  validation: client
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: environments
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: confluent-infra
+  interval: 5m
+  path: ./kustomize/environments/dev
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

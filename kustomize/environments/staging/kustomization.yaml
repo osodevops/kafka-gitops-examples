@@ -1,0 +1,12 @@
+namespace: staging
+resources:
+- namespace.yaml
+- ../../base
+patchesStrategicMerge:
+  - control-centre.yaml
+  - kafka.yaml
+  - kafka-connect.yaml
+  - ksqldb.yaml
+  - schema-registry.yaml
+
+

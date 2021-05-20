@@ -106,7 +106,7 @@ Following this example, you'll set up secure Confluent Platform clusters with SA
 ```sh
 export GITHUB_TOKEN=<your-token>
 export GITHUB_USER=<your-username>
-export GITHUB_REPO=<repository-name>
+export GITHUB_REPO=<repository-name (i.e. kafka-gitops)>
 ```
     
 2. After forking and cloning the repository, navigate to the project root and verify that your production cluster folder satisfies the prerequisites with:
@@ -123,6 +123,16 @@ flux bootstrap github \
     --personal \
     --path=clusters/production
 ```
+
+```sh
+flux bootstrap github \
+    --owner=${GITHUB_USER} \
+    --repository=${GITHUB_REPO} \
+    --branch=develop-andrewmccully \
+    --personal \
+    --path=kustomize
+```
+
 4. Deploy the secrets required by the application.  The secrets referenced in `./resources/populate_secrets.sh` will match up to the LDAP/LDIFs located at `./infrastructure/tools/ldap.yaml`
 ```sh
 ./resources/populate_secrets.sh
@@ -134,7 +144,7 @@ export USER=<user id here (often same as email)>
 export APIKEY=<API KEY sent via email>
 export EMAIL=<user email here>
 
-kubectl create secret docker-registry confluent-registry -n confluent \
+kubectl create secret docker-registry confluent-registry -n dev \
   --docker-server=confluent-docker-internal-early-access-operator-2.jfrog.io \
   --docker-username=$USER \
   --docker-password=$APIKEY \
@@ -159,6 +169,7 @@ $ watch flux get helmreleases --all-namespaces
 
 * Decode secrets
   `kubectl get secrets -n flux-system https-credentials -o json | jq '.data | map_values(@base64d)'`
+  `kubectl get secrets -n flux-system flux-system -o json | jq '.data | map_values(@base64d)'`
 
 * Access Control Centre
   `kubectl port-forward -n confluent controlcenter-0 9021:9021`. The web UI credentials will be c3/c3-secret (as defined by the populated secrets)
