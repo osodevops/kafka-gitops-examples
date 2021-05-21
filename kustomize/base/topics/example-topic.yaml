@@ -4,4 +4,4 @@ metadata:
   name: foobar
 spec:
   replicas: 1
-  partitionCount: 12
+  partitionCount: 6
