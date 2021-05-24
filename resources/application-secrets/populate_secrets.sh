@@ -22,6 +22,7 @@ kubectl create secret generic mds-client \
 # Control Center RBAC credential
 kubectl create secret generic c3-mds-client \
 --from-file=bearer.txt=./users/c3-mds-client.txt \
+--from-file=basic.txt=./users/c3-mds-client.txt \
 --dry-run=client --output=yaml > ../../kustomize/base/secrets/c3-mds-client.yaml
 # Connect RBAC credential
 kubectl create secret generic connect-mds-client \
@@ -41,3 +42,9 @@ kubectl create secret generic rest-credential \
 --from-file=basic.txt=./users/bearer.txt \
 --from-file=plain.txt=./users/bearer.txt \
 --dry-run=client --output=yaml > ../../kustomize/base/secrets/rest-credential.yaml
+
+# Confluent licensing
+kubectl create secret generic confluent-operator-licensing \
+--from-file=license.txt=./licensing/license-key.txt \
+--from-file=publicKey.pem=./licensing/license-pem.txt \
+--dry-run=client --output=yaml > ../../kustomize/base/secrets/confluent-license.yaml

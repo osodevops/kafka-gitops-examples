@@ -11,3 +11,11 @@ spec:
       bootstrapEndpoint: kafka.production.svc.cluster.local:9071
     mds:
       endpoint: https://kafka.production.svc.cluster.local:8090
+    connect:
+      - name: connect
+        url: https://connect.production.svc.cluster.local:8083
+    ksqldb:
+      - name: ksqldb
+        url: https://ksqldb.production.svc.cluster.local:8088
+    schemaRegistry:
+      url: https://registry.production.svc.cluster.local:8081
