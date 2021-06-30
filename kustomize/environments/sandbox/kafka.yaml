@@ -1,0 +1,14 @@
+---
+apiVersion: platform.confluent.io/v1beta1
+kind: Kafka
+metadata:
+  name: kafka
+spec:
+  configOverrides:
+    server:
+      - confluent.schema.registry.url=registry.sandbox.svc.cluster.local:8081
+  dependencies:
+    zookeeper:
+      endpoint: zookeeper.sandbox.svc.cluster.local:2182
+  metricReporter:
+    bootstrapEndpoint: kafka.sandbox.svc.cluster.local:9071
