@@ -3,7 +3,7 @@ kind: Kafka
 metadata:
   name: kafka
 spec:
-  replicas: 4
+#  replicas: 4
   configOverrides:
     server:
       - confluent.schema.registry.url=https://schemaregistry.sandbox.svc.cluster.local:8081
