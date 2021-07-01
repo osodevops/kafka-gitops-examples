@@ -58,18 +58,31 @@ This next step will tell Flux what repository to monitor, and, within that repos
 
 ## Watch Flux in action!
 Now that we have flux monitoring the forked Git repository, let's demonstrate the GitOps behaviour!  If everything has deployed successfully, you should see a healthy confluent stack looking like this:
-
-
+```console
+│ NAME                                          PF   READY      RESTARTS STATUS      IP              NODE         AGE        │
+│ confluent-operator-global-7ffc5b469d-knmfj    ●    1/1               0 Running     172.17.0.7      minikube     21m        │
+│ connect-0                                     ●    1/1               0 Running     172.17.0.17     minikube     9m31s      │
+│ controlcenter-0                               ●    1/1               1 Running     172.17.0.11     minikube     21m        │
+│ kafka-0                                       ●    1/1               3 Running     172.17.0.8      minikube     21m        │
+│ kafka-1                                       ●    1/1               3 Running     172.17.0.10     minikube     21m        │
+│ kafka-2                                       ●    1/1               3 Running     172.17.0.9      minikube     21m        │
+│ ksqldb-0                                      ●    1/1               1 Running     172.17.0.12     minikube     21m        │
+│ schemaregistry-0                              ●    1/1               1 Running     172.17.0.14     minikube     21m        │
+│ zookeeper-0                                   ●    1/1               0 Running     172.17.0.15     minikube     21m        │
+│ zookeeper-1                                   ●    1/1               0 Running     172.17.0.16     minikube     21m        │
+│ zookeeper-2                                   ●    1/1               0 Running     172.17.0.13     minikube     21m        │
+│
+```
 To exhibit Flux, let's change our kafka replicas from the default of 3, to 4:
-* In the file `./kustomize/environments/sandbox/kafka.yaml` uncomment the line `#  replicas: 4`, commit that change to your repository (git), and push upstream.   The next time flux performs a 'sync' (observable in the 'source controller' logs), it will not the change to the kafka spec, 
+* In the file `./kustomize/environments/sandbox/kafka.yaml` uncomment the line `#  replicas: 4`, commit that change to your repository (git), and push upstream.   The next time flux performs a 'sync' (observable in the 'source controller' logs), it will the change to the kafka spec, and in turn increase our kafka cluster from size '3' to '4'. 
 
 ## Develop Locally
-If you want to test configuration out locally without the need to push up to git (i.e. testing locally Minikube), the deployment can be replicated very simply:
+If you want to test configuration out locally without the need to push up to git (i.e. testing locally with Minikube), the deployment can be replicated very simply:
 
 * Navigate to `./flux-system`
 * Run `kubectl apply -f gotk-components.yaml`
 
-**instead of deploying the gotk-sync.yaml, we'll perform the kubectl kustomize applies.**
+**instead of deploying the gotk-sync.yaml, we'll perform the kubectl kustomize applies ourselves.**
 
 * Navigate to `./kustomize/operator`
 * Run `kubectl apply -k .`
