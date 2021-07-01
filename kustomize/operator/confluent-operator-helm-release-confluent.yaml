@@ -1,0 +1,27 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: confluentinc
+  namespace: flux-system
+spec:
+  url: https://packages.confluent.io/helm
+  interval: 1m
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: confluent
+  namespace: sandbox
+spec:
+  interval: 1m
+  chart:
+    spec:
+      chart: confluent-for-kubernetes
+      sourceRef:
+        name: confluentinc
+        kind: HelmRepository
+        namespace: flux-system
+  values:
+    image:
+      registry: docker.io
+    name: confluent-operator-global
