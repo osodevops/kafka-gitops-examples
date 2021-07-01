@@ -56,12 +56,27 @@ This next step will tell Flux what repository to monitor, and, within that repos
 * Navigate to `./flux-system`
 * run `kubectl apply -f gotk-sync.yaml`
 
-## Watch Flux in action
-### Overview
+## Watch Flux in action!
 Now that we have flux monitoring the forked Git repository, let's demonstrate the GitOps behaviour!  If everything has deployed successfully, you should see a healthy confluent stack looking like this:
 
 
 To exhibit Flux, let's change our kafka replicas from the default of 3, to 4:
-* In the file `./kustomize/environments/sandbox/kafka.yaml` 
+* In the file `./kustomize/environments/sandbox/kafka.yaml` uncomment the line `#  replicas: 4`, commit that change to your repository (git), and push upstream.   The next time flux performs a 'sync' (observable in the 'source controller' logs), it will not the change to the kafka spec, 
+
+## Develop Locally
+If you want to test configuration out locally without the need to push up to git (i.e. testing locally Minikube), the deployment can be replicated very simply:
+
+* Navigate to `./flux-system`
+* Run `kubectl apply -f gotk-components.yaml`
+
+**instead of deploying the gotk-sync.yaml, we'll perform the kubectl kustomize applies.**
+
+* Navigate to `./kustomize/operator`
+* Run `kubectl apply -k .`
+
+**monitor the running pods, wait until the 'confluent-operator' pod is in a running state**
+
+* Navigate to `./kustomize/environments/`
+* Run `kubectl apply -k .`
 
 
