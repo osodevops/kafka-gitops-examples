@@ -2,7 +2,7 @@
 
 For this example we assume a single clusters simulated a production environment. The end goal is to leverage Flux and Kustomize to manage [Confluent Operator for Kubernetes](https://github.com/confluentinc/operator-earlyaccess). You can extend the with another cluster while minimizing duplicated declarations.
 
-We will configure [Flux](https://fluxcd.io/) to install, deploy and config the [Confluent Platform](https://www.confluent.io/product/confluent-platform) using their private `HelmRepository` and `HelmRelease` custom resources.
+We will configure [Flux](https://fluxcd.io/) to install, deploy and config the [Confluent Platform](https://www.confluent.io/product/confluent-platform) using their `HelmRepository` and `HelmRelease` custom resources.
 Flux will monitor the Helm repository, and it will automatically upgrade the Helm releases to their latest chart version based on semver ranges.
 
 You may find this project helpful by simply referencing the documentation, code, and strategies for managing Kafka resources on Kubernetes. Additionally, if you just wish to operate a working example of the new Confluent operator, the following usage instructions will guide you.
@@ -25,7 +25,6 @@ Install the Confluent CLI
 curl -sL --http1.1 https://cnfl.io/cli | sh -s -- latest
 ```
 
-Get early access by registering interest here: [Confluent Operator Early Access Registration](https://events.confluent.io/confluentoperatorearlyaccess) For this Early Access program, you will have received an API key (associated with your email address) to the Confluent JFrog Artifactory. This is required to pull down the Helm charts and Confluent Docker images.
 
 ## Repository structure
 
@@ -109,46 +108,11 @@ export GITHUB_USER=<your-username>
 export GITHUB_REPO=<repository-name (i.e. kafka-gitops)>
 ```
     
-2. After forking and cloning the repository, navigate to the project root and verify that your production cluster folder satisfies the prerequisites with:
-```sh
-flux check --pre
-```
-
-3. Flux will now need connectivity do your cluster, ensure the correct kubectl context to your cluster and bootstrap Flux:
-```sh
-flux bootstrap github \
-    --owner=${GITHUB_USER} \
-    --repository=${GITHUB_REPO} \
-    --branch=main \
-    --personal \
-    --path=clusters/production
-```
-
-```sh
-flux bootstrap github \
-    --owner=${GITHUB_USER} \
-    --repository=${GITHUB_REPO} \
-    --branch=develop-andrewmccully \
-    --personal \
-    --path=kustomize
-```
-
-4. Deploy the secrets required by the application.  The secrets referenced in `./resources/populate_secrets.sh` will match up to the LDAP/LDIFs located at `./infrastructure/tools/ldap.yaml`
-```sh
-./resources/populate_secrets.sh
-```
-
-5. The source controller will be unable to pull the Helm chart or connect to the Docker registry. You now should create the following secrets using Confluent early access credentials:
 ```sh
 export USER=<user id here (often same as email)>
 export APIKEY=<API KEY sent via email>
 export EMAIL=<user email here>
 
-kubectl create secret docker-registry confluent-registry -n dev \
-  --docker-server=confluent-docker-internal-early-access-operator-2.jfrog.io \
-  --docker-username=$USER \
-  --docker-password=$APIKEY \
-  --docker-email=$EMAIL && \
 kubectl create secret -n flux-system generic https-credentials \
 --from-literal=username=$USER \
 --from-literal=password=$APIKEY
@@ -156,7 +120,8 @@ kubectl create secret -n flux-system generic https-credentials \
 ```
 Watch for the Helm releases being installed in production cluster:
 
-```console
+```
+console
 $ watch flux get helmreleases --all-namespaces 
 ```
 

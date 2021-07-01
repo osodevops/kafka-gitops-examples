@@ -15,7 +15,3 @@ spec:
       bootstrapEndpoint: kafka.foobar.svc.cluster.local:9071
       tls:
         enabled: true
-    mds:
-      endpoint: https://kafka.foobar.svc.cluster.local:8090
-      tls:
-        enabled: true

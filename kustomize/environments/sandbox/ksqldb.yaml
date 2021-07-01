@@ -7,5 +7,4 @@ spec:
   dependencies:
     kafka:
       bootstrapEndpoint: kafka.sandbox.svc.cluster.local:9071
-    mds:
-      endpoint: https://kafka.sandbox.svc.cluster.local:8090
+

@@ -7,10 +7,8 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: playground
-  secretRef:
-    name: flux-system
-  url: ssh://git@github.com/osodevops/kafka-gitops
+    branch: clean-up
+  url: https://github.com/osodevops/kafka-gitops.git
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
@@ -19,7 +17,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./kustomize/infrastructure
+  path: ./kustomize/operator
   prune: true
   sourceRef:
     kind: GitRepository
@@ -28,7 +26,7 @@ spec:
     - apiVersion: helm.toolkit.fluxcd.io/v1beta1
       kind: HelmRelease
       name: confluent
-      namespace: confluent
+      namespace: sandbox
   validation: client
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1

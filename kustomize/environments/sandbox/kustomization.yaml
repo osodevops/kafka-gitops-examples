@@ -1,4 +1,4 @@
-namespace: dev
+namespace: sandbox
 resources:
 - ../../base
 patchesStrategicMerge:
