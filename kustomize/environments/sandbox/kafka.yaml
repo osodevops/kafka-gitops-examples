@@ -1,9 +1,9 @@
----
 apiVersion: platform.confluent.io/v1beta1
 kind: Kafka
 metadata:
   name: kafka
 spec:
+#  replicas: 4
   configOverrides:
     server:
       - confluent.schema.registry.url=registry.sandbox.svc.cluster.local:8081

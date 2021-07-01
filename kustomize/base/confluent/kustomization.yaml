@@ -7,3 +7,4 @@ resources:
   - schema-registry.yaml
   - control-centre.yaml
   - ksqldb.yaml
+  - ca-pair-sslcerts.yaml

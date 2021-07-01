@@ -26,34 +26,6 @@ curl -sL --http1.1 https://cnfl.io/cli | sh -s -- latest
 ```
 
 
-## Repository structure
-
-The Git repository contains the following top directories:
-
-- **apps** dir contains Helm releases with a custom configuration per cluster
-- **infrastructure** dir contains common infra tools such as Confluent Operator, example LDAP controller and Helm repository definitions
-- **clusters** dir contains the Flux configuration per cluster
-
-```
-├── apps
-│   ├── base
-│   │   ├── kafka
-│   │   └── rolebindings   
-│   ├── production 
-├── infrastructure
-│   ├── confluent
-│   ├── sources
-│   └── tools
-└── clusters
-    └── production
-```
-### /apps
-The apps configuration contains all the Confluent Platform configuration and is structured into:
-
-- **apps/base/kakfa/** dir common values for all clusters: namespaces, certificates, secrets, Confluent components via Helm release definitions and Deployments
-- **apps/base/rolebings/** dir contains the common RBAC bindings for all deployments
-- **apps/production/** dir contains the production values 
-
 ### /infrastructure
 The infrastructure `sources` folder contains the [Flux Source Controller](https://fluxcd.io/docs/components/source/) configuration and some common tooling which is required for this Confluent LDAP / RBAC example.
 ```yaml
