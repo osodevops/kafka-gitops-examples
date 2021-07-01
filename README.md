@@ -12,7 +12,7 @@ You may find this project helpful by simply referencing the documentation, code,
 
 The Git repository contains the following top directories:
 
-- **flux-system** dir contains the required flux
+- **flux-system** dir contains the required kubernetes resources for flux to operate 
 - **kustomize/base** dir contains the base definition of the confluent stack.
 - **kustomize/environments** dir containing an example environment, folders could be copied to create additional environments.  Files within are 'patches' which are layered on top of the definitions found in kustomize/base
 - **kustomize/operator** dir the helm chart definition for confluent-for-kubernetes (CFK).
