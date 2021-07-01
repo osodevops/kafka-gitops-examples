@@ -7,3 +7,4 @@ patchesStrategicMerge:
   - kafka-connect.yaml
   - ksqldb.yaml
   - schema-registry.yaml
+  - zookeeper.yaml
