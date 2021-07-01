@@ -7,111 +7,61 @@ Flux will monitor the Helm repository, and it will automatically upgrade the Hel
 
 You may find this project helpful by simply referencing the documentation, code, and strategies for managing Kafka resources on Kubernetes. Additionally, if you just wish to operate a working example of the new Confluent operator, the following usage instructions will guide you.
 
-## Prerequisites
-You will need a Kubernetes cluster version 1.16 or newer and kubectl version 1.18.
 
-In order to follow the guide you'll need a GitHub account and a
-[personal access token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line)
-that can create repositories (check all permissions under `repo`).
+## Repository structure
 
-Install the Flux CLI on MacOS and Linux using Homebrew:
+The Git repository contains the following top directories:
 
-```sh
-brew install fluxcd/tap/flux
-```
+- **flux-system** dir contains the required flux
+- **kustomize/base** dir contains the base definition of the confluent stack.
+- **kustomize/environments** dir containing an example environment, folders could be copied to create additional environments.  Files within are 'patches' which are layered on top of the definitions found in kustomize/base
+- **kustomize/operator** dir the helm chart definition for confluent-for-kubernetes (CFK).
 
-Install the Confluent CLI 
-```she
-curl -sL --http1.1 https://cnfl.io/cli | sh -s -- latest
-```
-
-
-### /infrastructure
-The infrastructure `sources` folder contains the [Flux Source Controller](https://fluxcd.io/docs/components/source/) configuration and some common tooling which is required for this Confluent LDAP / RBAC example.
-```yaml
-apiVersion: source.toolkit.fluxcd.io/v1beta1
-kind: HelmRepository
-metadata:
-  name: confluent-private
-  namespace: flux-system
-spec:
-  url: https://confluent.jfrog.io/confluent/helm-early-access-operator-2
-  secretRef:
-    name: https-credentials
-  interval: 5m
-```
-Note secretRef: The Confluent helm repository is private and requires a username and password which we must create.
-Note that with interval: 5m we configure Flux to pull the Helm repository index every five minutes. If the index contains a new chart version that matches a HelmRelease semver range, Flux will upgrade the release.
-
-The `confluent` folder contains the Helm release which is performed by the [Helm Controller](https://fluxcd.io/docs/components/helm/helmreleases/) and also requires access to the private Docker registry to pull down the Confluent images.  
-```yaml
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
-metadata:
-  name: confluent
-  namespace: confluent
-spec:
-  interval: 1m
-  chart:
-    spec:
-      chart: confluent-for-kubernetes
-      sourceRef:
-        kind: HelmRepository
-        name: confluent-private
-        namespace: flux-system
-  values:
-    image:
-      registry: confluent-docker-internal-early-access-operator-2.jfrog.io
-```
-Note: The Helm automatically looks for a secret called `confluent-registry` which we must create in the confluent namespace.
-
-## Setup
-Following this example, you'll set up secure Confluent Platform clusters with SASL PLAIN authentication, role-based access control (RBAC) authorization, and inter-component TLS. The clusters dir contains the Kustomization definitions::
-```
-./clusters/
-└── production
-    ├── apps.yaml
-    └── infrastructure.yaml
-```
-1.  Using GitOps will require the FluxCD toolkit to have read and write access to the repository. For your own local version, you must create a fork of this repository and clone it locally; otherwise, the GitOps automation will not be authorized to read and write from the repository. Fork this repository on your personal GitHub account and export your GitHub access token, username and repo name:
-```sh
-export GITHUB_TOKEN=<your-token>
-export GITHUB_USER=<your-username>
-export GITHUB_REPO=<repository-name (i.e. kafka-gitops)>
-```
-    
-```sh
-export USER=<user id here (often same as email)>
-export APIKEY=<API KEY sent via email>
-export EMAIL=<user email here>
-
-kubectl create secret -n flux-system generic https-credentials \
---from-literal=username=$USER \
---from-literal=password=$APIKEY
 
 ```
-Watch for the Helm releases being installed in production cluster:
-
+├── flux-system
+├── kustomize
+│   ├── base
+│   │   ├── confluent
+│   ├── environments
+│   │   └── sandbox
+│   └── operator
 ```
-console
-$ watch flux get helmreleases --all-namespaces 
-```
+
+## Forking this repository.
+In order to showcase the GitOps behaviour of the FluxCD toolkit you will require the ability to write to a repository.  Fork this repository, and update line 11 of the file `./flux-system/gotk-sync.yaml` to the new https git address.  Also make note of line 10 'branch'; this is the branch of the repository which Flux will monitor
+
+## Deploy base Flux components
+### Overview
+This step will install the base Flux kubernetes components onto your kubernetes cluster.  To inspect what is being applied, simply look through the contents of `./flux-system/gotk-components.yaml`.  You will see a mix of Custom Resource Definitions, Service Accounts, Deployments, and other various components.  After application is finished, you should see the following pods running:
+
+* Helm-Controller
+* Kustomize Controller
+* Notification Controller
+* Source Controller
+
+For more information on what these controllers do, please review [the documentation here](https://fluxcd.io/docs/components/).
 
 
-## Appendix
-### Useful commands
+### Deployment Process
+* Navigate to `./flux-system`
+* Run `kubectl apply -f gotk-components.yaml`
 
-* Force Flux Reconciliation
-  `flux reconcile source git flux-system`
 
-* Decode secrets
-  `kubectl get secrets -n flux-system https-credentials -o json | jq '.data | map_values(@base64d)'`
-  `kubectl get secrets -n flux-system flux-system -o json | jq '.data | map_values(@base64d)'`
+## Deploy Flux Sync
+### Overview
+This next step will tell Flux what repository to monitor, and, within that repository, what kustomization files to start with.  The first Kustomize resource that Flux will look for to is located at `./kustomize/operator`.  This will install the confluent-for-kubernetes Helm chart.   After a successful health check of the operator (which will run as a pod), Flux will then proceed to deploy our first environment located at  `./kustomize/environments/sandbox`.
 
-* Access Control Centre
-  `kubectl port-forward -n confluent controlcenter-0 9021:9021`. The web UI credentials will be c3/c3-secret (as defined by the populated secrets)
+### Deployment Process
+* Navigate to `./flux-system`
+* run `kubectl apply -f gotk-sync.yaml`
 
-* LDAP Testing.  Exec onto the ldap container by running: `kubectl exec -it -n tools ldap -- bash`. Running  
-  `ldapsearch -LLL -x -H ldap://ldap.tools.svc.cluster.local:389 -b 'dc=test,dc=com' -D "cn=mds,dc=test,dc=com" -w 'Developer!'` will return a list of LDAP users presently configured
+## Watch Flux in action
+### Overview
+Now that we have flux monitoring the forked Git repository, let's demonstrate the GitOps behaviour!  If everything has deployed successfully, you should see a healthy confluent stack looking like this:
 
-* For testing a repeatable deployment process, for example on a local minikube, a `tldr.sh` script which captures the above steps has been included at the root of this project
+
+To exhibit Flux, let's change our kafka replicas from the default of 3, to 4:
+* In the file `./kustomize/environments/sandbox/kafka.yaml` 
+
+

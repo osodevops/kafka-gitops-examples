@@ -4,6 +4,11 @@ kind: Connect
 metadata:
   name: connect
 spec:
+  tls:
+    secretRef: tls-group1
   dependencies:
     kafka:
       bootstrapEndpoint: kafka.sandbox.svc.cluster.local:9071
+      tls:
+        enabled: true
+
