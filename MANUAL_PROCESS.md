@@ -7,13 +7,10 @@ In order to showcase the GitOps behaviour of the FluxCD toolkit you will require
 This step will install the base Flux kubernetes components onto your kubernetes cluster.  To inspect what is being applied, simply look through the contents of `./flux-system/gotk-components.yaml`.  You will see a mix of Custom Resource Definitions, Service Accounts, Deployments, and other various components.  After application is finished, you should see the following pods running:  
 
 * Helm-Controller
-  
 * Kustomize Controller
-
 * Notification Controller
-    
 * Source Controller
-    * Monitor the logs of this pod to observe the polling FluxCD will perform on the git repository. 
+ 
 
 ### Deployment Process
 * Navigate to `./flux-system`
