@@ -1,0 +1,10 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: Kafka
+metadata:
+  name: kafka
+spec:
+  replicas: 3
+  image:
+    application: confluentinc/cp-server-operator:6.1.1.0
+    init: confluentinc/cp-init-container-operator:6.1.1.0
+  dataVolumeCapacity: 10Gi
