@@ -10,4 +10,7 @@
 .build-harness
 build-harness
 
-test.log
+sensitive-*
+identity
+identity.pub
+known_hosts
