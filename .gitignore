@@ -1,5 +1,13 @@
+# Compiled files
+*.tfstate
+*.tfstate.backup
+
+# Module directory
+.terraform
 .idea
-sensitive-*
-identity
-identity.pub
-known_hosts
+*.iml
+
+.build-harness
+build-harness
+
+test.log
