@@ -21,6 +21,16 @@ spec:
         name: confluentinc
         kind: HelmRepository
         namespace: flux-system
+  upgrade:
+    timeout: 30s
+    remediation:
+      retries: 3
+      strategy: rollback
+    cleanupOnFail: true
+  rollback:
+    timeout: 1m
+    force: true
+    cleanupOnFail: true
   values:
     image:
       registry: docker.io
