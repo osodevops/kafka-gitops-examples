@@ -4,7 +4,3 @@ resources:
   - secrets
   - zookeeper.yaml
   - kafka.yaml
-  - schmea-registry
-  - connect
-  - ksqldb
-  - control-centre.yaml
