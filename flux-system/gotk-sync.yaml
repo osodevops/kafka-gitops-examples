@@ -26,7 +26,7 @@ spec:
     - apiVersion: helm.toolkit.fluxcd.io/v1beta1
       kind: HelmRelease
       name: confluent
-      namespace: sandbox
+      namespace: confluent
   validation: client
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
@@ -38,7 +38,7 @@ spec:
   dependsOn:
     - name: confluent-infra
   interval: 5m
-  path: ./kustomize/environments/sandbox
+  path: ./kustomize/environments
   prune: true
   sourceRef:
     kind: GitRepository
