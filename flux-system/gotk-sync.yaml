@@ -26,7 +26,6 @@ spec:
     - apiVersion: helm.toolkit.fluxcd.io/v1beta1
       kind: HelmRelease
       name: confluent
-      namespace: confluent
   validation: client
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
