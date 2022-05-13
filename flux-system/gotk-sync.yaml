@@ -38,7 +38,7 @@ spec:
   dependsOn:
     - name: confluent-infra
   interval: 5m
-  path: ./kustomize/environments/sandbox
+  path: ./kustomize/environments
   prune: true
   sourceRef:
     kind: GitRepository
