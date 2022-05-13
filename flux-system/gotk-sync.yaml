@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: confluent_upgrade
+    branch: main
   url: https://github.com/osodevops/kafka-gitops.git
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
